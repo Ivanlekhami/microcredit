@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #00AEA0;">
+            <div class="container-fluid">
+                <i class="bi bi-bank" style="color: white; font-size: 3em;"></i>
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active text-white" style="font-size: 2em;" aria-current="page" href="{% url 'home' %}">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white" style="font-size: 2em;" href="#">About</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white" style="font-size: 2em;" href="#">Contact us</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="container mt-5 p-3">
+        <h1 class="text-center">Get personalized advice for granting a loan</h1>
+        <p class="text-center">Are you considering granting a loan to a client? Not sure if this is the right decision for you?
+            Our website can help you! By answering a few simple questions, you'll get a personalized assessment on how to make the best decision for your business.
+        </p>
+        <form method="post" class="text-center p-3 mt-5" style="font-size:1.2em;border:3px solid #00AEA0;border-radius:20px;">
+            {% csrf_token %}
+            <p class="text-center">
+                <label for="montant">Amount of the loan</label> <br>
+                <input id="montant" style="width:70%; height:40px; text-align:center" type="number" min="0" max="1000000000" name="montant" required>
+            </p>
+            <p class="text-center">
+                <label for="revenu">Customer's annual income</label> <br>
+                <input id="revenu" style="width:70%; height:40px; text-align:center" type="number" min="0" max="1000000000" name="revenu" required>
+            </p>
+            <p class="text-center">
+                <label for="antecedent">Customer credit history</label> <br>
+                <input id="antecedent" style="width:70%; height:40px; text-align:center" type="number" min="0" max="1" name="antecedent" required>
+            </p>
+            <div class="d-flex justify-content-center p-3">
+                <button type="submit" class="btn btn-success" style="font-size:1.8em;">Submit</button>
+            </div>
+        </form>
+
+        <!-- Partie resultat -->
+        <div class="text-center mt-3">
+          {% if result %}
+            <span class="text-primary"> Refund probability for new customer: </span>
+            {{ result }}
+          {% endif %}
+        </div>
+        <div>
+            <img src="{% static 'plot1.png' %}" alt="Diagramme à points">
+            <img src="{% static 'plot2.png' %}" alt="Diagramme à points">
+        </div>
+    </section>
+    <footer class="d-flex bg-light justify-content-between mt-5 p-5">
+      <a class="text-center text-dark text-decoration-none" href="#" style="font-size: 2.3em;">Terms of use</a>
+      <p class="text-center" style="font-size: 2.3em;">Copyright: UN-M1SLED @ 2024</p>
+    </footer>
+{% endblock %}
