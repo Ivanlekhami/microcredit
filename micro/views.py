@@ -63,7 +63,7 @@ def regressionLogistic(montant, revenu, antecedent):
     save_path = os.path.join(BASE_DIR, 'static', 'plot3.png')
     plt.hist(X_norm[:, 0])  # Visualiser la distribution de la première caractéristique normalisée
     plt.hist(X_norm[:, 1])  # Visualiser la distribution de la deuxième caractéristique normalisée
-    plt.title("Histogramme desc aracteristiques normalisées")
+    plt.title("Histogramme des caracteristiques normalisées")
     # Enregistrer le graphique au chemin d'accès spécifié
     plt.savefig(save_path)
 
