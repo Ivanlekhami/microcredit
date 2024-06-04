@@ -11,13 +11,15 @@ from sklearn.impute import SimpleImputer
 
 # Create your views here.
 def home(request):
+    test = False
     if request.method == 'POST':
+        test = True
         montant = int(request.POST.get("montant"))
         revenu = int(request.POST.get("revenu"))
         antecedent = int(request.POST.get("antecedent"))
         result = regressionLogistic(montant, revenu, antecedent)
-        return render(request, "home.html", {'result': result})
-    return render(request, "home.html")
+        return render(request, "home.html", {'result': result, 'test': test})
+    return render(request, "home.html", {'test': test})
 
 def regressionLogistic(montant, revenu, antecedent):
     # Charger les données CSV dans un DataFrame Pandas
@@ -57,9 +59,13 @@ def regressionLogistic(montant, revenu, antecedent):
     # Normaliser les caractéristiques numériques
     scaler = StandardScaler()
     X_norm = scaler.fit_transform(X)
+    # Définir le chemin d'enregistrement
+    save_path = os.path.join(BASE_DIR, 'static', 'plot3.png')
     plt.hist(X_norm[:, 0])  # Visualiser la distribution de la première caractéristique normalisée
     plt.hist(X_norm[:, 1])  # Visualiser la distribution de la deuxième caractéristique normalisée
-    plt.show()
+    plt.title("Histogramme desc aracteristiques normalisées")
+    # Enregistrer le graphique au chemin d'accès spécifié
+    plt.savefig(save_path)
 
     # Créer le nuage de points
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap='summer')

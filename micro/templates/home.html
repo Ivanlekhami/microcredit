@@ -58,7 +58,12 @@
         </div>
         <div>
             <img src="{% static 'plot1.png' %}" alt="Diagramme à points">
-            <img src="{% static 'plot2.png' %}" alt="Diagramme à points">
+            {% if test %}
+                <img src="{% static 'plot2.png' %}" alt="Diagramme à points">
+            {% else %}
+                <img src="{% static 'plot3.png' %}" alt="Diagramme à points">
+            {% endif %}
+
         </div>
     </section>
     <footer class="d-flex bg-light justify-content-between mt-5 p-5">
